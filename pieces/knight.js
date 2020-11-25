@@ -26,6 +26,7 @@ class Knight extends Piece {
         }
       }
     }
+    
     this.moveset = moveset;
   }
 }

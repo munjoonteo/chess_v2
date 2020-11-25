@@ -18,6 +18,8 @@ class Piece {
     this.board = board;
     this.colour = colour;
     this.dragging = false;
+
+    this.movedTwo = false;
   }
 
   show() {
@@ -85,11 +87,7 @@ class Piece {
     this.board.capture();
 
     // Change turn
-    if (this.board.currentTurn === "white") {
-      this.board.currentTurn = "black";
-    } else {
-      this.board.currentTurn = "white";
-    }
+    this.board.nextTurn();
   }
 
   legalMove(finalX, finalY) {

@@ -246,6 +246,20 @@ class Board {
     };
   }
 
+  nextTurn() {
+    if (board.currentTurn === "white") {
+      board.currentTurn = "black";
+      for (let piece of this.black) {
+        piece.movedTwo = false;
+      }
+    } else {
+      board.currentTurn = "white";
+      for (let piece of this.white) {
+        piece.movedTwo = false;
+      }
+    }
+  }
+
   updateAndShow(mouseX, mouseY) {
     for (let piece of this.white) {
       piece.update(mouseX, mouseY);
