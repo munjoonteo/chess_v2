@@ -69,6 +69,10 @@ class Piece {
       colour: "",
     };
 
+    if (this.name == "p" && Math.abs(floor(finalY / squareWidth) - this.yGrid) === 2) {
+      this.movedTwo = true;
+    }
+
     // Update piece data
     this.x = finalX;
     this.y = finalY;
