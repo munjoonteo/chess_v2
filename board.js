@@ -17,10 +17,15 @@ class Board {
     this.currentTurn = "white";
     this.initialise();
 
+    // Position of kings
     this.whiteKingX = 4;
     this.whiteKingY = 7;
     this.blackKingX = 3;
     this.blackKingY = 0;
+
+    // If anyone is in check
+    this.whiteInCheck = false;
+    this.blackInCheck = false;
   }
 
   initialise() {
@@ -206,6 +211,9 @@ class Board {
         piece.movedTwo = false;
       }
     }
+
+    this.whiteInCheck = false;
+    this.blackInCheck = false;
   }
 
   updateAndShow(mouseX, mouseY) {
