@@ -89,6 +89,9 @@ class Piece {
     this.originalY = this.y;
     this.hasMoved = true;
 
+    // Update king positions
+    this.board.updateKings();
+
     // Update board state - set new position to be current piece
     this.board.boardState[this.yGrid][this.xGrid] = this;
 

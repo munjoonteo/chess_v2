@@ -16,6 +16,11 @@ class Board {
     }
     this.currentTurn = "white";
     this.initialise();
+
+    this.whiteKingX = 4;
+    this.whiteKingY = 7;
+    this.blackKingX = 3;
+    this.blackKingY = 0;
   }
 
   initialise() {
@@ -257,6 +262,22 @@ class Board {
       if (this.black[i].captured) {
         this.black.splice(i, 1);
         return;
+      }
+    }
+  }
+
+  updateKings() {
+    for (let piece of this.white) {
+      if (piece.name === "K") {
+        this.whiteKingX = piece.xGrid;
+        this.whiteKingY = piece.yGrid;
+      }
+    }
+
+    for (let piece of this.black) {
+      if (piece.name === "K") {
+        this.blackKingX = piece.xGrid;
+        this.blackKingY = piece.yGrid;
       }
     }
   }
