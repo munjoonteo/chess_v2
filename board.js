@@ -287,4 +287,26 @@ class Board {
       piece.released();
     }
   }
+
+  capture() {
+    let capturer, captured;
+    if (this.currentTurn === "white") {
+      capturer = this.white;
+      captured = this.black;
+    } else {
+      capturer = this.black;
+      captured = this.white;
+    }
+
+    for (let i = 0; i < capturer.length; i++) {
+      for (let j = 0; j < captured.length; j++) {
+        let piece = capturer[i];
+        let target = captured[j];
+        if (piece.xGrid === target.xGrid && piece.yGrid === target.yGrid) {
+          captured.splice(j, 1);
+          return;
+        }
+      }
+    }
+  }
 }

@@ -75,18 +75,21 @@ class Piece {
     this.originalX = this.x;
     this.originalY = this.y;
 
+    // Update board state - set new position to be current piece
+    this.board.boardState[this.yGrid][this.xGrid] = {
+      piece: this.name,
+      colour: this.colour,
+    };
+
+    // Process pieces which were captured
+    this.board.capture();
+
     // Change turn
     if (this.board.currentTurn === "white") {
       this.board.currentTurn = "black";
     } else {
       this.board.currentTurn = "white";
     }
-
-    // Update board state - set new position to be current piece
-    this.board.boardState[this.yGrid][this.xGrid] = {
-      piece: this.name,
-      colour: this.colour,
-    };
   }
 
   legalMove(finalX, finalY) {

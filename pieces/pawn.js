@@ -32,6 +32,5 @@ class Pawn extends Piece {
       }
     }
     this.moveset = moveset;
-    console.log(this.moveset);
   }
 }
