@@ -246,23 +246,17 @@ class Board {
   }
 
   capture() {
-    let capturer, captured;
-    if (this.currentTurn === "white") {
-      capturer = this.white;
-      captured = this.black;
-    } else {
-      capturer = this.black;
-      captured = this.white;
+    for (let i = 0; i < this.white.length; i++) {
+      if (this.white[i].captured) {
+        this.white.splice(i, 1);
+        return;
+      }
     }
 
-    for (let i = 0; i < capturer.length; i++) {
-      for (let j = 0; j < captured.length; j++) {
-        let piece = capturer[i];
-        let target = captured[j];
-        if (piece.xGrid === target.xGrid && piece.yGrid === target.yGrid) {
-          captured.splice(j, 1);
-          return;
-        }
+    for (let i = 0; i < this.black.length; i++) {
+      if (this.black[i].captured) {
+        this.black.splice(i, 1);
+        return;
       }
     }
   }

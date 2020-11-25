@@ -19,7 +19,9 @@ class Piece {
     this.colour = colour;
     this.dragging = false;
 
+    this.hasMoved = false;
     this.movedTwo = false;
+    this.captured = false;
   }
 
   show() {
@@ -63,9 +65,14 @@ class Piece {
   }
 
   movePiece(finalX, finalY) {
-    // Update board state - set old position to be empty square
+    let finalXGrid = floor(this.x / squareWidth);
+    let finalYGrid = floor(this.y / squareWidth);
+
+    // Update board state - set new position to be captured and old position to be empty square
+    this.board.boardState[finalYGrid][finalXGrid].captured = true;
     this.board.boardState[this.yGrid][this.xGrid] = new Piece(0, 0, null, "");
 
+    // Check for pawns moving two squares
     if (
       this.name == "p" &&
       Math.abs(floor(finalY / squareWidth) - this.yGrid) === 2
@@ -76,10 +83,11 @@ class Piece {
     // Update piece data
     this.x = finalX;
     this.y = finalY;
-    this.xGrid = floor(this.x / squareWidth);
-    this.yGrid = floor(this.y / squareWidth);
+    this.xGrid = finalXGrid;
+    this.yGrid = finalYGrid;
     this.originalX = this.x;
     this.originalY = this.y;
+    this.hasMoved = true;
 
     // Update board state - set new position to be current piece
     this.board.boardState[this.yGrid][this.xGrid] = this;
