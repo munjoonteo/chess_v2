@@ -200,20 +200,19 @@ class Board {
   }
 
   nextTurn() {
-    if (board.currentTurn === "white") {
-      board.currentTurn = "black";
+    if (this.currentTurn === "white") {
+      this.currentTurn = "black";
       for (let piece of this.black) {
         piece.movedTwo = false;
       }
+      this.whiteInCheck = false;
     } else {
-      board.currentTurn = "white";
+      this.currentTurn = "white";
       for (let piece of this.white) {
         piece.movedTwo = false;
       }
+      this.blackInCheck = false;
     }
-
-    this.whiteInCheck = false;
-    this.blackInCheck = false;
   }
 
   updateAndShow(mouseX, mouseY) {

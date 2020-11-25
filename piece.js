@@ -90,6 +90,7 @@ class Piece {
     this.hasMoved = true;
 
     // See if anyone is in check
+    this.updateMoveset();
     this.setCheck();
 
     // Update king positions
@@ -128,9 +129,15 @@ class Piece {
 
   setCheck() {
     for (let move of this.moveset) {
-      if (move[0] === this.board.whiteKingX && move[1] === this.board.whiteKingY) {
+      if (
+        move[0] === this.board.whiteKingX &&
+        move[1] === this.board.whiteKingY
+      ) {
         this.board.whiteInCheck = true;
-      } else if (move[0] === this.board.blackKingX && move[1] === this.board.blackKingY) {
+      } else if (
+        move[0] === this.board.blackKingX &&
+        move[1] === this.board.blackKingY
+      ) {
         this.board.blackInCheck = true;
       }
     }
