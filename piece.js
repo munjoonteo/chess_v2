@@ -64,12 +64,12 @@ class Piece {
 
   movePiece(finalX, finalY) {
     // Update board state - set old position to be empty square
-    this.board.boardState[this.yGrid][this.xGrid] = {
-      piece: "",
-      colour: "",
-    };
+    this.board.boardState[this.yGrid][this.xGrid] = new Piece(0, 0, null, "");
 
-    if (this.name == "p" && Math.abs(floor(finalY / squareWidth) - this.yGrid) === 2) {
+    if (
+      this.name == "p" &&
+      Math.abs(floor(finalY / squareWidth) - this.yGrid) === 2
+    ) {
       this.movedTwo = true;
     }
 
@@ -82,10 +82,7 @@ class Piece {
     this.originalY = this.y;
 
     // Update board state - set new position to be current piece
-    this.board.boardState[this.yGrid][this.xGrid] = {
-      piece: this.name,
-      colour: this.colour,
-    };
+    this.board.boardState[this.yGrid][this.xGrid] = this;
 
     // Process pieces which were captured
     this.board.capture();
