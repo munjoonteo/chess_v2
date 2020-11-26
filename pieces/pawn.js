@@ -113,7 +113,7 @@ class Pawn extends Piece {
         moveset.push([this.xGrid + 1, this.yGrid + 1]);
       }
     }
-    
+
     this.moveset = moveset;
   }
 }

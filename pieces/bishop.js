@@ -4,7 +4,7 @@ class Bishop extends Piece {
     this.name = "B";
   }
 
-    updateMoveset() {
+  updateMoveset() {
     let moveset = [];
 
     for (let i = 1; i < 7; i++) {
@@ -76,5 +76,5 @@ class Bishop extends Piece {
     }
 
     this.moveset = moveset;
-    }
+  }
 }

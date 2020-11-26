@@ -142,7 +142,7 @@ class Queen extends Piece {
         }
       }
     }
-    
+
     this.moveset = moveset;
   }
 }
