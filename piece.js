@@ -74,8 +74,8 @@ class Piece {
 
     // Check for pawns moving two squares
     if (
-      this.name == "p" &&
-      Math.abs(floor(finalY / squareWidth) - this.yGrid) === 2
+      this.name === "p" &&
+      Math.abs(floor(finalY / squareWidth) - this.yGrid) == 2
     ) {
       this.movedTwo = true;
     }
@@ -130,13 +130,13 @@ class Piece {
   setCheck() {
     for (let move of this.moveset) {
       if (
-        move[0] === this.board.whiteKingX &&
-        move[1] === this.board.whiteKingY
+        move[0] == this.board.whiteKingX &&
+        move[1] == this.board.whiteKingY
       ) {
         this.board.whiteInCheck = true;
       } else if (
-        move[0] === this.board.blackKingX &&
-        move[1] === this.board.blackKingY
+        move[0] == this.board.blackKingX &&
+        move[1] == this.board.blackKingY
       ) {
         this.board.blackInCheck = true;
       }
