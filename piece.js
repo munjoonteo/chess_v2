@@ -56,7 +56,12 @@ class Piece {
     let finalX = floor(this.x / squareWidth) * squareWidth + squareWidth / 2;
     let finalY = floor(this.y / squareWidth) * squareWidth + squareWidth / 2;
 
-    if (this.legalMove(finalX, finalY)) {
+    if (
+      this.name === "K" &&
+      Math.abs(floor(finalX / squareWidth) - this.xGrid) == 2
+    ) {
+      this.castle(finalX, finalY);
+    } else if (this.legalMove(finalX, finalY)) {
       this.movePiece(finalX, finalY);
     } else {
       this.x = this.originalX;
@@ -65,8 +70,8 @@ class Piece {
   }
 
   movePiece(finalX, finalY) {
-    let finalXGrid = floor(this.x / squareWidth);
-    let finalYGrid = floor(this.y / squareWidth);
+    let finalXGrid = floor(finalX / squareWidth);
+    let finalYGrid = floor(finalY / squareWidth);
 
     // Update board state - set new position to be captured and old position to be empty square
     this.board.boardState[finalYGrid][finalXGrid].captured = true;
