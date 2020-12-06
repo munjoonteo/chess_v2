@@ -56,10 +56,7 @@ class Piece {
     let finalX = floor(this.x / squareWidth) * squareWidth + squareWidth / 2;
     let finalY = floor(this.y / squareWidth) * squareWidth + squareWidth / 2;
 
-    if (
-      this.name === "K" &&
-      Math.abs(floor(finalX / squareWidth) - this.xGrid) == 2
-    ) {
+    if (this.didCastle(finalX)) {
       this.castle(finalX, finalY);
     } else if (this.legalMove(finalX, finalY)) {
       this.movePiece(finalX, finalY);
@@ -74,7 +71,16 @@ class Piece {
     let finalYGrid = floor(finalY / squareWidth);
 
     // Update board state - set new position to be captured and old position to be empty square
-    this.board.boardState[finalYGrid][finalXGrid].captured = true;
+    // Case for en passant - piece is pawn, did a capture and did not directly capture a piece
+    if (this.didEnPassant(finalXGrid, finalYGrid)) {
+      if (this.colour === "white") {
+        this.board.boardState[finalYGrid + 1][finalXGrid].captured = true;
+      } else {
+        this.board.boardState[finalYGrid - 1][finalXGrid].captured = true;
+      }
+    } else {
+      this.board.boardState[finalYGrid][finalXGrid].captured = true;
+    }
     this.board.boardState[this.yGrid][this.xGrid] = new Piece(0, 0, null, "");
 
     // Check for pawns moving two squares
@@ -146,5 +152,20 @@ class Piece {
         this.board.blackInCheck = true;
       }
     }
+  }
+
+  didCastle(finalX) {
+    return (
+      this.name === "K" &&
+      Math.abs(floor(finalX / squareWidth) - this.xGrid) == 2
+    );
+  }
+
+  didEnPassant(finalXGrid, finalYGrid) {
+    return (
+      this.name === "p" &&
+      finalXGrid != this.xGrid &&
+      this.board.boardState[finalYGrid][finalXGrid].colour === ""
+    );
   }
 }
