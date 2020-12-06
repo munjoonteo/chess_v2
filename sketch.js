@@ -1,13 +1,19 @@
 var dimensions = 8;
 var squareWidth = 80;
 var canvasSize = dimensions * squareWidth;
-var fontSize = 40;
+var fontSize = 60;
 var board;
+var font;
 
 var offsetX, offsetY;
 
+function preload() {
+  font = loadFont("MERIFONT.TTF");
+}
+
 function setup() {
   createCanvas(canvasSize, canvasSize);
+  textFont(font);
   textSize(fontSize);
   textAlign(CENTER, CENTER);
   board = new Board();

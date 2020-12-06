@@ -1,7 +1,7 @@
 class Pawn extends Piece {
   constructor(x, y, board, colour) {
     super(x, y, board, colour);
-    this.name = "p";
+    this.name = "\uf06f";
   }
 
   updateMoveset() {
