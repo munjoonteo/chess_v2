@@ -378,6 +378,10 @@ class Board {
       this.recentCapture = null;
     }
 
+    piece.hasMoved = false;
+    piece.movedTwo = false;
+    piece.updateMoveset();
+    
     return isStillCheck;
   }
 }

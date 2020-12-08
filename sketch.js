@@ -28,6 +28,7 @@ function draw() {
 function mousePressed() {
   board.pressed(mouseX, mouseY);
   board.updateMovesets();
+  console.log(board);
 }
 
 function mouseReleased() {
@@ -51,7 +52,6 @@ function drawGrid() {
   }
 }
 
-
-// TODO 
+// TODO
 // checkmate
 // stalemate
