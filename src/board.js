@@ -32,24 +32,24 @@ class Board {
 
   initialise() {
     // Pawns
-    // for (let i = 0; i < dimensions; i++) {
-    //   let whitePawn = new Pawn(
-    //     squareWidth / 2 + squareWidth * i,
-    //     squareWidth / 2 + squareWidth * 6,
-    //     this,
-    //     "white"
-    //   );
-    //   let blackPawn = new Pawn(
-    //     squareWidth / 2 + squareWidth * i,
-    //     squareWidth / 2 + squareWidth,
-    //     this,
-    //     "black"
-    //   );
-    //   this.white.push(whitePawn);
-    //   this.black.push(blackPawn);
-    //   this.boardState[1][i] = blackPawn;
-    //   this.boardState[6][i] = whitePawn;
-    // }
+    for (let i = 0; i < dimensions; i++) {
+      let whitePawn = new Pawn(
+        squareWidth / 2 + squareWidth * i,
+        squareWidth / 2 + squareWidth * 6,
+        this,
+        "white"
+      );
+      let blackPawn = new Pawn(
+        squareWidth / 2 + squareWidth * i,
+        squareWidth / 2 + squareWidth,
+        this,
+        "black"
+      );
+      this.white.push(whitePawn);
+      this.black.push(blackPawn);
+      this.boardState[1][i] = blackPawn;
+      this.boardState[6][i] = whitePawn;
+    }
 
     // Bishop
     let whiteLBishop = new Bishop(
