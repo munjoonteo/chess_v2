@@ -168,7 +168,7 @@ class Board {
     );
 
     let blackQueen = new Queen(
-      squareWidth / 2 + squareWidth * 4,
+      squareWidth / 2 + squareWidth * 3,
       squareWidth / 2,
       this,
       "black"
@@ -176,7 +176,7 @@ class Board {
 
     this.white.push(whiteQueen);
     this.black.push(blackQueen);
-    this.boardState[0][4] = blackQueen;
+    this.boardState[0][3] = blackQueen;
     this.boardState[7][3] = whiteQueen;
 
     // King
@@ -188,14 +188,14 @@ class Board {
     );
 
     let blackKing = new King(
-      squareWidth / 2 + squareWidth * 3,
+      squareWidth / 2 + squareWidth * 4,
       squareWidth / 2,
       this,
       "black"
     );
     this.white.push(whiteKing);
     this.black.push(blackKing);
-    this.boardState[0][3] = blackKing;
+    this.boardState[0][4] = blackKing;
     this.boardState[7][4] = whiteKing;
   }
 
