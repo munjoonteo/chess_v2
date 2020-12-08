@@ -1,7 +1,8 @@
 class Bishop extends Piece {
   constructor(x, y, board, colour) {
     super(x, y, board, colour);
-    this.name = "\uf076";
+    this.code = "\uf076";
+    this.name = "B";
   }
 
   updateMoveset() {

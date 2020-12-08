@@ -1,7 +1,8 @@
 class Knight extends Piece {
   constructor(x, y, board, colour) {
     super(x, y, board, colour);
-    this.name = "\uf06d";
+    this.code = "\uf06d";
+    this.name = "N"
   }
 
   updateMoveset() {

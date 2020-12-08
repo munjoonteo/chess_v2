@@ -1,7 +1,8 @@
 class Queen extends Piece {
   constructor(x, y, board, colour) {
     super(x, y, board, colour);
-    this.name = "\uf077";
+    this.code = "\uf077";
+    this.name = "Q";
   }
 
   updateMoveset() {

@@ -1,7 +1,8 @@
 class Rook extends Piece {
   constructor(x, y, board, colour) {
     super(x, y, board, colour);
-    this.name = "\uF074";
+    this.code = "\uF074";
+    this.name = "R";
   }
 
   updateMoveset() {
