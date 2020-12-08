@@ -19,8 +19,12 @@ class Piece {
     this.colour = colour;
     this.dragging = false;
 
+    // For castling and pawns
     this.hasMoved = false;
+
+    // For pawns
     this.movedTwo = false;
+
     this.captured = false;
   }
 
@@ -56,13 +60,13 @@ class Piece {
     let finalX = floor(this.x / squareWidth) * squareWidth + squareWidth / 2;
     let finalY = floor(this.y / squareWidth) * squareWidth + squareWidth / 2;
 
-    if (finalX == this.x && finalY == this.y) {
+    if (finalX == this.x && finalY == this.y) { // Has not moved
       return;
     } else if (this.didCastle(finalX)) {
       this.castle(finalX, finalY);
     } else if (this.legalMove(finalX, finalY)) {
       this.movePiece(finalX, finalY);
-    } else {
+    } else { // Illegal move
       this.x = this.originalX;
       this.y = this.originalY;
     }
@@ -72,8 +76,8 @@ class Piece {
     let finalXGrid = floor(finalX / squareWidth);
     let finalYGrid = floor(finalY / squareWidth);
 
-    // Update board state - set new position to be captured and old position to be empty square
-    // Case for en passant - piece is pawn, did a capture and did not directly capture a piece
+    // En passant - piece is pawn, did a capture and did not directly capture a piece
+    // Otherwise, set the other piece on the square to be captured - will remove from pieces array later
     if (this.name === "p" && this.didEnPassant(finalXGrid, finalYGrid)) {
       if (this.colour === "white") {
         this.board.boardState[finalYGrid + 1][finalXGrid].captured = true;
@@ -84,6 +88,7 @@ class Piece {
       this.board.boardState[finalYGrid][finalXGrid].captured = true;
     }
 
+    // Set old position to be an empty square
     this.board.boardState[this.yGrid][this.xGrid] = new Piece(0, 0, null, "");
 
     // Check for pawns moving two squares
@@ -103,7 +108,7 @@ class Piece {
     this.originalY = this.y;
     this.hasMoved = true;
 
-    // Update board state - set new position to be current piece
+    // Set new position to be current piece
     this.board.boardState[this.yGrid][this.xGrid] = this;
 
     // Change turn
@@ -111,13 +116,17 @@ class Piece {
   }
 
   legalMove(finalX, finalY) {
+    // Wrong colour
     if (this.colour != this.board.currentTurn) return false;
 
     let gridX = floor(finalX / squareWidth);
     let gridY = floor(finalY / squareWidth);
 
+    // Either not in check and moved a piece so that it's check
+    // Or in check and still in check after move
     if (this.board.stillInCheck(this, finalX, finalY)) return false;
 
+    // Moved king into check
     if (this.name === "K" && this.board.moveIntoCheck(gridX, gridY))
       return false;
 
@@ -125,6 +134,7 @@ class Piece {
       if (gridX != allowedMove[0] || gridY != allowedMove[1]) continue;
       return true;
     }
+    
     return false;
   }
 
