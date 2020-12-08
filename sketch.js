@@ -50,3 +50,9 @@ function drawGrid() {
     }
   }
 }
+
+
+// TODO 
+// in check -> move out of check
+// checkmate
+// stalemate

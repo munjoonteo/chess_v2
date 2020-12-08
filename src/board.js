@@ -26,28 +26,30 @@ class Board {
     // If anyone is in check
     this.whiteInCheck = false;
     this.blackInCheck = false;
+
+    this.recentCapture = null;
   }
 
   initialise() {
     // Pawns
-    for (let i = 0; i < dimensions; i++) {
-      let whitePawn = new Pawn(
-        squareWidth / 2 + squareWidth * i,
-        squareWidth / 2 + squareWidth * 6,
-        this,
-        "white"
-      );
-      let blackPawn = new Pawn(
-        squareWidth / 2 + squareWidth * i,
-        squareWidth / 2 + squareWidth,
-        this,
-        "black"
-      );
-      this.white.push(whitePawn);
-      this.black.push(blackPawn);
-      this.boardState[1][i] = blackPawn;
-      this.boardState[6][i] = whitePawn;
-    }
+    // for (let i = 0; i < dimensions; i++) {
+    //   let whitePawn = new Pawn(
+    //     squareWidth / 2 + squareWidth * i,
+    //     squareWidth / 2 + squareWidth * 6,
+    //     this,
+    //     "white"
+    //   );
+    //   let blackPawn = new Pawn(
+    //     squareWidth / 2 + squareWidth * i,
+    //     squareWidth / 2 + squareWidth,
+    //     this,
+    //     "black"
+    //   );
+    //   this.white.push(whitePawn);
+    //   this.black.push(blackPawn);
+    //   this.boardState[1][i] = blackPawn;
+    //   this.boardState[6][i] = whitePawn;
+    // }
 
     // Bishop
     let whiteLBishop = new Bishop(
@@ -200,6 +202,7 @@ class Board {
   }
 
   nextTurn() {
+    this.setCheck();
     this.updateKings();
     this.capture();
 
@@ -208,13 +211,11 @@ class Board {
       for (let piece of this.black) {
         piece.movedTwo = false;
       }
-      this.whiteInCheck = false;
     } else {
       this.currentTurn = "white";
       for (let piece of this.white) {
         piece.movedTwo = false;
       }
-      this.blackInCheck = false;
     }
   }
 
@@ -263,6 +264,7 @@ class Board {
   capture() {
     for (let i = 0; i < this.white.length; i++) {
       if (this.white[i].captured) {
+        this.recentCapture = this.white[i];
         this.white.splice(i, 1);
         return;
       }
@@ -270,10 +272,39 @@ class Board {
 
     for (let i = 0; i < this.black.length; i++) {
       if (this.black[i].captured) {
+        this.recentCapture = this.black[i];
         this.black.splice(i, 1);
         return;
       }
     }
+  }
+
+  setCheck() {
+    let changedWhite = false;
+    let changedBlack = false;
+
+    for (let piece of this.white) {
+      piece.updateMoveset();
+      for (let move of piece.moveset) {
+        if (move[0] == this.blackKingX && move[1] == this.blackKingY) {
+          this.blackInCheck = true;
+          changedBlack = true;
+        }
+      }
+    }
+
+    for (let piece of this.black) {
+      piece.updateMoveset();
+      for (let move of piece.moveset) {
+        if (move[0] == this.blackKingX && move[1] == this.blackKingY) {
+          this.whiteInCheck = true;
+          changedWhite = true;
+        }
+      }
+    }
+
+    if (!changedBlack) this.blackInCheck = false;
+    if (!changedWhite) this.whiteInCheck = false;
   }
 
   updateKings() {
@@ -307,5 +338,45 @@ class Board {
     }
 
     return false;
+  }
+
+  stillInCheck(piece, finalX, finalY) {
+    let isStillCheck = false;
+    let oldX = piece.originalX;
+    let oldY = piece.originalY;
+
+    let oldBoardState = [];
+    for (let i = 0; i < dimensions; i++) {
+      oldBoardState[i] = [];
+      for (let j = 0; j < dimensions; j++) {
+        oldBoardState[i][j] = this.boardState[i][j];
+      }
+    }
+
+    piece.movePiece(finalX, finalY);
+
+    if (this.currentTurn === "white") {
+      isStillCheck = this.blackInCheck;
+    } else {
+      isStillCheck = this.whiteInCheck;
+    }
+
+    piece.movePiece(oldX, oldY);
+    this.boardState = oldBoardState;
+    if (this.recentCapture != null && this.recentCapture.colour !== "") {
+      if (this.recentCapture.colour === "white") {
+        this.white.push(this.recentCapture);
+      } else {
+        this.black.push(this.recentCapture);
+      }
+      let restoreX = this.recentCapture.xGrid;
+      let restoreY = this.recentCapture.yGrid;
+      this.boardState[restoreY][restoreX] = this.recentCapture;
+      
+      this.recentCapture.captured = false;
+      this.recentCapture = null;
+    }
+
+    return isStillCheck;
   }
 }

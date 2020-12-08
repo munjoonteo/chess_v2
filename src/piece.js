@@ -56,7 +56,9 @@ class Piece {
     let finalX = floor(this.x / squareWidth) * squareWidth + squareWidth / 2;
     let finalY = floor(this.y / squareWidth) * squareWidth + squareWidth / 2;
 
-    if (this.didCastle(finalX)) {
+    if (finalX == this.x && finalY == this.y) {
+      return;
+    } else if (this.didCastle(finalX)) {
       this.castle(finalX, finalY);
     } else if (this.legalMove(finalX, finalY)) {
       this.movePiece(finalX, finalY);
@@ -72,16 +74,14 @@ class Piece {
 
     // Update board state - set new position to be captured and old position to be empty square
     // Case for en passant - piece is pawn, did a capture and did not directly capture a piece
-    if (this.name === "p") {
-      if (this.didEnPassant(finalXGrid, finalYGrid)) {
-        if (this.colour === "white") {
-          this.board.boardState[finalYGrid + 1][finalXGrid].captured = true;
-        } else {
-          this.board.boardState[finalYGrid - 1][finalXGrid].captured = true;
-        }
+    if (this.name === "p" && this.didEnPassant(finalXGrid, finalYGrid)) {
+      if (this.colour === "white") {
+        this.board.boardState[finalYGrid + 1][finalXGrid].captured = true;
       } else {
-        this.board.boardState[finalYGrid][finalXGrid].captured = true;
+        this.board.boardState[finalYGrid - 1][finalXGrid].captured = true;
       }
+    } else {
+      this.board.boardState[finalYGrid][finalXGrid].captured = true;
     }
 
     this.board.boardState[this.yGrid][this.xGrid] = new Piece(0, 0, null, "");
@@ -103,10 +103,6 @@ class Piece {
     this.originalY = this.y;
     this.hasMoved = true;
 
-    // See if anyone is in check
-    this.updateMoveset();
-    this.setCheck();
-
     // Update board state - set new position to be current piece
     this.board.boardState[this.yGrid][this.xGrid] = this;
 
@@ -119,6 +115,20 @@ class Piece {
 
     let gridX = floor(finalX / squareWidth);
     let gridY = floor(finalY / squareWidth);
+
+    if (
+      this.colour === "white" &&
+      this.board.whiteInCheck &&
+      this.board.stillInCheck(this, finalX, finalY)
+    )
+      return false;
+
+    if (
+      this.colour === "black" &&
+      this.board.blackInCheck &&
+      this.board.stillInCheck(this, finalX, finalY)
+    )
+      return false;
 
     if (this.name === "K" && this.board.moveIntoCheck(gridX, gridY))
       return false;
@@ -137,22 +147,6 @@ class Piece {
       return false;
     }
     return true;
-  }
-
-  setCheck() {
-    for (let move of this.moveset) {
-      if (
-        move[0] == this.board.whiteKingX &&
-        move[1] == this.board.whiteKingY
-      ) {
-        this.board.whiteInCheck = true;
-      } else if (
-        move[0] == this.board.blackKingX &&
-        move[1] == this.board.blackKingY
-      ) {
-        this.board.blackInCheck = true;
-      }
-    }
   }
 
   didCastle(finalX) {
