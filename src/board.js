@@ -288,4 +288,21 @@ class Board {
       }
     }
   }
+
+  moveIntoCheck(gridX, gridY) {
+    let curr;
+    if (this.currentTurn === "white") {
+      curr = this.black;
+    } else {
+      curr = this.white;
+    }
+
+    for (let piece of curr) {
+      for (let move of piece.moveset) {
+        if (move[0] == gridX && move[1] == gridY) return true;
+      }
+    }
+
+    return false;
+  }
 }
