@@ -33,7 +33,7 @@ class Piece {
       fill("black");
       stroke("white");
     }
-    text(this.name, this.x, this.y);
+    text(this.code, this.x, this.y);
   }
 
   update(mx, my) {
@@ -72,15 +72,18 @@ class Piece {
 
     // Update board state - set new position to be captured and old position to be empty square
     // Case for en passant - piece is pawn, did a capture and did not directly capture a piece
-    if (this.didEnPassant(finalXGrid, finalYGrid)) {
-      if (this.colour === "white") {
-        this.board.boardState[finalYGrid + 1][finalXGrid].captured = true;
+    if (this.name === "p") {
+      if (this.didEnPassant(finalXGrid, finalYGrid)) {
+        if (this.colour === "white") {
+          this.board.boardState[finalYGrid + 1][finalXGrid].captured = true;
+        } else {
+          this.board.boardState[finalYGrid - 1][finalXGrid].captured = true;
+        }
       } else {
-        this.board.boardState[finalYGrid - 1][finalXGrid].captured = true;
+        this.board.boardState[finalYGrid][finalXGrid].captured = true;
       }
-    } else {
-      this.board.boardState[finalYGrid][finalXGrid].captured = true;
     }
+    
     this.board.boardState[this.yGrid][this.xGrid] = new Piece(0, 0, null, "");
 
     // Check for pawns moving two squares
@@ -122,6 +125,10 @@ class Piece {
 
     let gridX = floor(finalX / squareWidth);
     let gridY = floor(finalY / squareWidth);
+
+    if (this.name === "K" && this.board.moveIntoCheck(gridX, gridY))
+      return false;
+
     for (let allowedMove of this.moveset) {
       if (gridX != allowedMove[0] || gridY != allowedMove[1]) continue;
       return true;
