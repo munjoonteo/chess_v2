@@ -27,6 +27,7 @@ class Board {
     this.whiteInCheck = false;
     this.blackInCheck = false;
 
+    // Used to restore a piece if it is captured with an illegal move
     this.recentCapture = null;
   }
 
@@ -51,7 +52,7 @@ class Board {
       this.boardState[6][i] = whitePawn;
     }
 
-    // Bishop
+    // Bishops
     let whiteLBishop = new Bishop(
       squareWidth / 2 + squareWidth * 2,
       squareWidth / 2 + squareWidth * 7,
@@ -90,7 +91,7 @@ class Board {
     this.boardState[7][2] = whiteLBishop;
     this.boardState[7][5] = whiteRBishop;
 
-    // Knight
+    // Knights
     let whiteLKnight = new Knight(
       squareWidth / 2 + squareWidth * 1,
       squareWidth / 2 + squareWidth * 7,
@@ -128,7 +129,7 @@ class Board {
     this.boardState[7][1] = whiteLKnight;
     this.boardState[7][6] = whiteRKnight;
 
-    // Rook
+    // Rooks
     let whiteLRook = new Rook(
       squareWidth / 2,
       squareWidth / 2 + squareWidth * 7,
@@ -161,7 +162,7 @@ class Board {
     this.boardState[7][0] = whiteLRook;
     this.boardState[7][7] = whiteRRook;
 
-    // Queen
+    // Queens
     let whiteQueen = new Queen(
       squareWidth / 2 + squareWidth * 3,
       squareWidth / 2 + squareWidth * 7,
@@ -181,7 +182,7 @@ class Board {
     this.boardState[0][3] = blackQueen;
     this.boardState[7][3] = whiteQueen;
 
-    // King
+    // Kings
     let whiteKing = new King(
       squareWidth / 2 + squareWidth * 4,
       squareWidth / 2 + squareWidth * 7,
@@ -262,6 +263,8 @@ class Board {
   }
 
   capture() {
+    // Remove any pieces marked as to be captured
+    // Save the piece in recentCapture just in case it's an illegal move
     for (let i = 0; i < this.white.length; i++) {
       if (this.white[i].captured) {
         this.recentCapture = this.white[i];
@@ -280,15 +283,15 @@ class Board {
   }
 
   setCheck() {
-    let changedWhite = false;
-    let changedBlack = false;
+    // Is black or white currently in check
+    let currWhite = false;
+    let currBlack = false;
 
     for (let piece of this.white) {
       piece.updateMoveset();
       for (let move of piece.moveset) {
         if (move[0] == this.blackKingX && move[1] == this.blackKingY) {
-          this.blackInCheck = true;
-          changedBlack = true;
+          currBlack = true;
         }
       }
     }
@@ -297,14 +300,13 @@ class Board {
       piece.updateMoveset();
       for (let move of piece.moveset) {
         if (move[0] == this.whiteKingX && move[1] == this.whiteKingY) {
-          this.whiteInCheck = true;
-          changedWhite = true;
+          currWhite = true;
         }
       }
     }
 
-    if (!changedBlack) this.blackInCheck = false;
-    if (!changedWhite) this.whiteInCheck = false;
+    this.blackInCheck = currBlack;
+    this.whiteInCheck = currWhite;
   }
 
   updateKings() {
@@ -324,6 +326,7 @@ class Board {
   }
 
   moveIntoCheck(gridX, gridY) {
+    // Check if a given king move results in the king moving into check
     let curr;
     if (this.currentTurn === "white") {
       curr = this.black;
@@ -341,10 +344,16 @@ class Board {
   }
 
   stillInCheck(piece, finalX, finalY) {
+    // True if not in check and moved a piece so that it's check
+    // Or in check and still in check after move
+    
     let isStillCheck = false;
+
+    // Save original position
     let oldX = piece.originalX;
     let oldY = piece.originalY;
 
+    // Save original board state
     let oldBoardState = [];
     for (let i = 0; i < dimensions; i++) {
       oldBoardState[i] = [];
@@ -353,6 +362,7 @@ class Board {
       }
     }
 
+    // Move the piece to see if the current player is in check
     piece.movePiece(finalX, finalY);
 
     if (this.currentTurn === "white") {
@@ -361,15 +371,18 @@ class Board {
       isStillCheck = this.whiteInCheck;
     }
 
+    // Move the piece back and restore the old board
     piece.movePiece(oldX, oldY);
     this.boardState = oldBoardState;
+
+    // Restore the piece which was captured
     if (this.recentCapture != null && this.recentCapture.colour !== "") {
       if (this.recentCapture.colour === "white") {
         this.white.push(this.recentCapture);
       } else {
         this.black.push(this.recentCapture);
       }
-      
+
       let restoreX = this.recentCapture.xGrid;
       let restoreY = this.recentCapture.yGrid;
       this.boardState[restoreY][restoreX] = this.recentCapture;

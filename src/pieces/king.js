@@ -31,6 +31,7 @@ class King extends Piece {
       return;
     }
 
+    // Direction of castle
     let right;
     if (finalX > this.originalX) {
       right = true;
@@ -50,6 +51,8 @@ class King extends Piece {
       if (piece.name === "R" && piece.yGrid == this.yGrid && !piece.hasMoved) {
         if (finalX < piece.x && right) {
           // Right castle
+
+          // Check there are no pieces in between King and Rook and not moving into castle
           let isEmpty = true;
           for (let i = this.xGrid + 1; i < dimensions - 1; i++) {
             if (
@@ -69,6 +72,8 @@ class King extends Piece {
           break;
         } else if (finalX > piece.x && !right) {
           // Left castle
+          
+          // Check there are no pieces in between King and Rook and not moving into castle
           let isEmpty = true;
           for (let i = this.xGrid - 1; i > 1; i--) {
             if (
