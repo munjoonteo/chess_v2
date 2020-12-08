@@ -20,7 +20,7 @@ class Board {
     // Position of kings
     this.whiteKingX = 4;
     this.whiteKingY = 7;
-    this.blackKingX = 3;
+    this.blackKingX = 4;
     this.blackKingY = 0;
 
     // If anyone is in check
@@ -202,7 +202,7 @@ class Board {
   nextTurn() {
     this.updateKings();
     this.capture();
-    
+
     if (this.currentTurn === "white") {
       this.currentTurn = "black";
       for (let piece of this.black) {
