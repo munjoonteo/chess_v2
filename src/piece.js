@@ -116,19 +116,7 @@ class Piece {
     let gridX = floor(finalX / squareWidth);
     let gridY = floor(finalY / squareWidth);
 
-    if (
-      this.colour === "white" &&
-      this.board.whiteInCheck &&
-      this.board.stillInCheck(this, finalX, finalY)
-    )
-      return false;
-
-    if (
-      this.colour === "black" &&
-      this.board.blackInCheck &&
-      this.board.stillInCheck(this, finalX, finalY)
-    )
-      return false;
+    if (this.board.stillInCheck(this, finalX, finalY)) return false;
 
     if (this.name === "K" && this.board.moveIntoCheck(gridX, gridY))
       return false;

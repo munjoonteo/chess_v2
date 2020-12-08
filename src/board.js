@@ -296,7 +296,7 @@ class Board {
     for (let piece of this.black) {
       piece.updateMoveset();
       for (let move of piece.moveset) {
-        if (move[0] == this.blackKingX && move[1] == this.blackKingY) {
+        if (move[0] == this.whiteKingX && move[1] == this.whiteKingY) {
           this.whiteInCheck = true;
           changedWhite = true;
         }
@@ -369,10 +369,11 @@ class Board {
       } else {
         this.black.push(this.recentCapture);
       }
+      
       let restoreX = this.recentCapture.xGrid;
       let restoreY = this.recentCapture.yGrid;
       this.boardState[restoreY][restoreX] = this.recentCapture;
-      
+
       this.recentCapture.captured = false;
       this.recentCapture = null;
     }
