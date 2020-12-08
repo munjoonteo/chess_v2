@@ -83,7 +83,7 @@ class Piece {
         this.board.boardState[finalYGrid][finalXGrid].captured = true;
       }
     }
-    
+
     this.board.boardState[this.yGrid][this.xGrid] = new Piece(0, 0, null, "");
 
     // Check for pawns moving two squares
@@ -107,14 +107,8 @@ class Piece {
     this.updateMoveset();
     this.setCheck();
 
-    // Update king positions
-    this.board.updateKings();
-
     // Update board state - set new position to be current piece
     this.board.boardState[this.yGrid][this.xGrid] = this;
-
-    // Process pieces which were captured
-    this.board.capture();
 
     // Change turn
     this.board.nextTurn();

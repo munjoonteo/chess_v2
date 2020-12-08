@@ -200,6 +200,9 @@ class Board {
   }
 
   nextTurn() {
+    this.updateKings();
+    this.capture();
+    
     if (this.currentTurn === "white") {
       this.currentTurn = "black";
       for (let piece of this.black) {
