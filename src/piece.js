@@ -136,10 +136,6 @@ class Piece {
     // Or in check and still in check after move
     if (this.board.stillInCheck(this, finalX, finalY)) return false;
 
-    // Moved king into check
-    if (this.name === "K" && this.board.moveIntoCheck(gridX, gridY))
-      return false;
-
     for (let allowedMove of this.moveset) {
       if (gridX != allowedMove[0] || gridY != allowedMove[1]) continue;
       return true;

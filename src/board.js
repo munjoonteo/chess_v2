@@ -217,6 +217,8 @@ class Board {
         piece.movedTwo = false;
       }
     }
+
+    this.updateMovesets();
   }
 
   updateAndShow(mouseX, mouseY) {
@@ -379,5 +381,32 @@ class Board {
     piece.updateMoveset();
 
     return isStillCheck;
+  }
+
+  isCheckmate() {
+    let curr;
+    if (this.currentTurn === "white") {
+      curr = this.white;
+    } else {
+      curr = this.black;
+    }
+
+    let currInCheck;
+    if (this.currentTurn === "white") {
+      currInCheck = this.whiteInCheck;
+    } else {
+      currInCheck = this.blackInCheck;
+    }
+
+    let hasLegalMove = false;
+    for (let piece of curr) {
+      for (let move of piece.moveset) {
+        let moveX = move[0] * squareWidth + squareWidth / 2;
+        let moveY = move[1] * squareWidth + squareWidth / 2;
+        hasLegalMove = piece.legalMove(moveX, moveY);
+      }
+    }
+
+    return currInCheck && !hasLegalMove;
   }
 }
