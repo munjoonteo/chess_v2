@@ -60,13 +60,15 @@ class Piece {
     let finalX = floor(this.x / squareWidth) * squareWidth + squareWidth / 2;
     let finalY = floor(this.y / squareWidth) * squareWidth + squareWidth / 2;
 
-    if (finalX == this.x && finalY == this.y) { // Has not moved
+    if (finalX == this.x && finalY == this.y) {
+      // Has not moved
       return;
     } else if (this.didCastle(finalX)) {
       this.castle(finalX, finalY);
     } else if (this.legalMove(finalX, finalY)) {
       this.movePiece(finalX, finalY);
-    } else { // Illegal move
+    } else {
+      // Illegal move
       this.x = this.originalX;
       this.y = this.originalY;
     }
@@ -108,6 +110,14 @@ class Piece {
     this.originalY = this.y;
     this.hasMoved = true;
 
+    if (this.name === "K" && this.colour === "white") {
+      this.board.whiteKingX = this.xGrid;
+      this.board.whiteKingY = this.yGrid;
+    } else if (this.name === "K" && this.colour === "black") {
+      this.board.blackKingX = this.xGrid;
+      this.board.blackKingY = this.yGrid;
+    }
+
     // Set new position to be current piece
     this.board.boardState[this.yGrid][this.xGrid] = this;
 
@@ -134,7 +144,7 @@ class Piece {
       if (gridX != allowedMove[0] || gridY != allowedMove[1]) continue;
       return true;
     }
-    
+
     return false;
   }
 

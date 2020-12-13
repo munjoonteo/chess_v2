@@ -204,7 +204,6 @@ class Board {
 
   nextTurn() {
     this.setCheck();
-    this.updateKings();
     this.capture();
 
     if (this.currentTurn === "white") {
@@ -309,22 +308,6 @@ class Board {
     this.whiteInCheck = currWhite;
   }
 
-  updateKings() {
-    for (let piece of this.white) {
-      if (piece.name === "K") {
-        this.whiteKingX = piece.xGrid;
-        this.whiteKingY = piece.yGrid;
-      }
-    }
-
-    for (let piece of this.black) {
-      if (piece.name === "K") {
-        this.blackKingX = piece.xGrid;
-        this.blackKingY = piece.yGrid;
-      }
-    }
-  }
-
   moveIntoCheck(gridX, gridY) {
     // Check if a given king move results in the king moving into check
     let curr;
@@ -346,7 +329,7 @@ class Board {
   stillInCheck(piece, finalX, finalY) {
     // True if not in check and moved a piece so that it's check
     // Or in check and still in check after move
-    
+
     let isStillCheck = false;
 
     // Save original position
@@ -394,7 +377,7 @@ class Board {
     piece.hasMoved = false;
     piece.movedTwo = false;
     piece.updateMoveset();
-    
+
     return isStillCheck;
   }
 }
