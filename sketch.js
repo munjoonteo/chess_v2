@@ -35,13 +35,13 @@ function draw() {
 }
 
 function mousePressed() {
-  if (board.checkmate) return;
+  if (board.checkmate || board.stalemate) return;
   board.pressed(mouseX, mouseY);
   board.updateMovesets();
 }
 
 function mouseReleased() {
-  if (board.checkmate) return;
+  if (board.checkmate || board.stalemate) return;
   board.released();
   board.updateMovesets();
 }
