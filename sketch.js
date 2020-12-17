@@ -1,9 +1,10 @@
 var dimensions = 8;
-var squareWidth = 80;
+var squareWidth = 200;
 var canvasSize = dimensions * squareWidth;
-var fontSize = 60;
+var fontSize = 150;
 var board;
 var font;
+var offset;
 
 var offsetX, offsetY;
 
@@ -12,13 +13,21 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(canvasSize, canvasSize);
+  let canvas = createCanvas(windowWidth, windowHeight);
+  var x = windowWidth - width;
+  var y = windowHeight - height;
+  canvas.position(x, y);
+
   textAlign(CENTER, CENTER);
+
   board = new Board();
   board.updateMovesets();
+
+  offset = windowWidth / 2 - 4 * squareWidth;
 }
 
 function draw() {
+  background("#312E2B");
   drawGrid();
   textSize(fontSize);
   textFont(font);
@@ -52,17 +61,17 @@ function drawGrid() {
       var x = squareWidth * i;
       var y = squareWidth * j;
       if ((i + j) % 2 == 0) {
-        fill("white");
+        fill("#e0e0e0");
       } else {
-        fill("black");
+        fill("#316540");
       }
       strokeWeight(0.5);
       stroke("black");
-      square(x, y, squareWidth);
+      square(x + offset, y, squareWidth);
     }
   }
 }
 
-// TODO
-// checkmate
-// stalemate
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
