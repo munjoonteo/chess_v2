@@ -13,8 +13,6 @@ function preload() {
 
 function setup() {
   createCanvas(canvasSize, canvasSize);
-  textFont(font);
-  textSize(fontSize);
   textAlign(CENTER, CENTER);
   board = new Board();
   board.updateMovesets();
@@ -22,15 +20,30 @@ function setup() {
 
 function draw() {
   drawGrid();
+  textSize(fontSize);
+  textFont(font);
   board.updateAndShow(mouseX, mouseY);
+  if (board.checkmate) {
+    textSize(fontSize * 0.75);
+    textFont("Helvetica");
+    text(
+      board.currentTurn[0].toUpperCase() +
+        board.currentTurn.substring(1) +
+        " has been checkmated!",
+      squareWidth * 4,
+      squareWidth * 4
+    );
+  }
 }
 
 function mousePressed() {
+  if (board.checkmate) return;
   board.pressed(mouseX, mouseY);
   board.updateMovesets();
 }
 
 function mouseReleased() {
+  if (board.checkmate) return;
   board.released();
   board.updateMovesets();
 }
@@ -46,6 +59,7 @@ function drawGrid() {
         fill("black");
       }
       strokeWeight(0.5);
+      stroke("black");
       square(x, y, squareWidth);
     }
   }

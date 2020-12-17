@@ -29,28 +29,30 @@ class Board {
 
     // Used to restore a piece if it is captured with an illegal move
     this.recentCapture = null;
+
+    this.checkmate = false;
   }
 
   initialise() {
     // Pawns
-    for (let i = 0; i < dimensions; i++) {
-      let whitePawn = new Pawn(
-        squareWidth / 2 + squareWidth * i,
-        squareWidth / 2 + squareWidth * 6,
-        this,
-        "white"
-      );
-      let blackPawn = new Pawn(
-        squareWidth / 2 + squareWidth * i,
-        squareWidth / 2 + squareWidth,
-        this,
-        "black"
-      );
-      this.white.push(whitePawn);
-      this.black.push(blackPawn);
-      this.boardState[1][i] = blackPawn;
-      this.boardState[6][i] = whitePawn;
-    }
+    // for (let i = 0; i < dimensions; i++) {
+    //   let whitePawn = new Pawn(
+    //     squareWidth / 2 + squareWidth * i,
+    //     squareWidth / 2 + squareWidth * 6,
+    //     this,
+    //     "white"
+    //   );
+    //   let blackPawn = new Pawn(
+    //     squareWidth / 2 + squareWidth * i,
+    //     squareWidth / 2 + squareWidth,
+    //     this,
+    //     "black"
+    //   );
+    //   this.white.push(whitePawn);
+    //   this.black.push(blackPawn);
+    //   this.boardState[1][i] = blackPawn;
+    //   this.boardState[6][i] = whitePawn;
+    // }
 
     // Bishops
     let whiteLBishop = new Bishop(
@@ -203,8 +205,8 @@ class Board {
   }
 
   nextTurn() {
-    this.setCheck();
     this.capture();
+    this.setCheck();
 
     if (this.currentTurn === "white") {
       this.currentTurn = "black";
@@ -244,6 +246,8 @@ class Board {
   }
 
   pressed(mouseX, mouseY) {
+    if (this.isCheckmate()) return;
+
     for (let piece of this.white) {
       piece.pressed(mouseX, mouseY);
     }
@@ -261,6 +265,8 @@ class Board {
     for (let piece of this.black) {
       piece.released();
     }
+
+    this.checkmate = this.isCheckmate();
   }
 
   capture() {
@@ -398,15 +404,16 @@ class Board {
       currInCheck = this.blackInCheck;
     }
 
-    let hasLegalMove = false;
     for (let piece of curr) {
       for (let move of piece.moveset) {
         let moveX = move[0] * squareWidth + squareWidth / 2;
         let moveY = move[1] * squareWidth + squareWidth / 2;
-        hasLegalMove = piece.legalMove(moveX, moveY);
+        if (!currInCheck || !this.stillInCheck(piece, moveX, moveY)) {
+          return false;
+        }
       }
     }
 
-    return currInCheck && !hasLegalMove;
+    return currInCheck;
   }
 }
