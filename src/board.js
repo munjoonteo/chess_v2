@@ -31,6 +31,7 @@ class Board {
     this.recentCapture = null;
 
     this.checkmate = false;
+    this.stalemate = false;
   }
 
   initialise() {
@@ -54,115 +55,115 @@ class Board {
     //   this.boardState[6][i] = whitePawn;
     // }
 
-    // Bishops
-    let whiteLBishop = new Bishop(
-      squareWidth / 2 + squareWidth * 2,
-      squareWidth / 2 + squareWidth * 7,
-      this,
-      "white"
-    );
+    // // Bishops
+    // let whiteLBishop = new Bishop(
+    //   squareWidth / 2 + squareWidth * 2,
+    //   squareWidth / 2 + squareWidth * 7,
+    //   this,
+    //   "white"
+    // );
 
-    let whiteRBishop = new Bishop(
-      squareWidth / 2 + squareWidth * 5,
-      squareWidth / 2 + squareWidth * 7,
-      this,
-      "white"
-    );
+    // let whiteRBishop = new Bishop(
+    //   squareWidth / 2 + squareWidth * 5,
+    //   squareWidth / 2 + squareWidth * 7,
+    //   this,
+    //   "white"
+    // );
 
-    let blackLBishop = new Bishop(
-      squareWidth / 2 + squareWidth * 2,
-      squareWidth / 2,
-      this,
-      "black"
-    );
+    // let blackLBishop = new Bishop(
+    //   squareWidth / 2 + squareWidth * 2,
+    //   squareWidth / 2,
+    //   this,
+    //   "black"
+    // );
 
-    let blackRBishop = new Bishop(
-      squareWidth / 2 + squareWidth * 5,
-      squareWidth / 2,
-      this,
-      "black"
-    );
+    // let blackRBishop = new Bishop(
+    //   squareWidth / 2 + squareWidth * 5,
+    //   squareWidth / 2,
+    //   this,
+    //   "black"
+    // );
 
-    this.white.push(whiteLBishop);
-    this.white.push(whiteRBishop);
-    this.black.push(blackLBishop);
-    this.black.push(blackRBishop);
+    // this.white.push(whiteLBishop);
+    // this.white.push(whiteRBishop);
+    // this.black.push(blackLBishop);
+    // this.black.push(blackRBishop);
 
-    this.boardState[0][2] = blackLBishop;
-    this.boardState[0][5] = blackRBishop;
-    this.boardState[7][2] = whiteLBishop;
-    this.boardState[7][5] = whiteRBishop;
+    // this.boardState[0][2] = blackLBishop;
+    // this.boardState[0][5] = blackRBishop;
+    // this.boardState[7][2] = whiteLBishop;
+    // this.boardState[7][5] = whiteRBishop;
 
-    // Knights
-    let whiteLKnight = new Knight(
-      squareWidth / 2 + squareWidth * 1,
-      squareWidth / 2 + squareWidth * 7,
-      this,
-      "white"
-    );
+    // // Knights
+    // let whiteLKnight = new Knight(
+    //   squareWidth / 2 + squareWidth * 1,
+    //   squareWidth / 2 + squareWidth * 7,
+    //   this,
+    //   "white"
+    // );
 
-    let whiteRKnight = new Knight(
-      squareWidth / 2 + squareWidth * 6,
-      squareWidth / 2 + squareWidth * 7,
-      this,
-      "white"
-    );
+    // let whiteRKnight = new Knight(
+    //   squareWidth / 2 + squareWidth * 6,
+    //   squareWidth / 2 + squareWidth * 7,
+    //   this,
+    //   "white"
+    // );
 
-    let blackLKnight = new Knight(
-      squareWidth / 2 + squareWidth * 1,
-      squareWidth / 2,
-      this,
-      "black"
-    );
+    // let blackLKnight = new Knight(
+    //   squareWidth / 2 + squareWidth * 1,
+    //   squareWidth / 2,
+    //   this,
+    //   "black"
+    // );
 
-    let blackRKnight = new Knight(
-      squareWidth / 2 + squareWidth * 6,
-      squareWidth / 2,
-      this,
-      "black"
-    );
+    // let blackRKnight = new Knight(
+    //   squareWidth / 2 + squareWidth * 6,
+    //   squareWidth / 2,
+    //   this,
+    //   "black"
+    // );
 
-    this.white.push(whiteLKnight);
-    this.white.push(whiteRKnight);
-    this.black.push(blackLKnight);
-    this.black.push(blackRKnight);
-    this.boardState[0][1] = blackLKnight;
-    this.boardState[0][6] = blackRKnight;
-    this.boardState[7][1] = whiteLKnight;
-    this.boardState[7][6] = whiteRKnight;
+    // this.white.push(whiteLKnight);
+    // this.white.push(whiteRKnight);
+    // this.black.push(blackLKnight);
+    // this.black.push(blackRKnight);
+    // this.boardState[0][1] = blackLKnight;
+    // this.boardState[0][6] = blackRKnight;
+    // this.boardState[7][1] = whiteLKnight;
+    // this.boardState[7][6] = whiteRKnight;
 
-    // Rooks
-    let whiteLRook = new Rook(
-      squareWidth / 2,
-      squareWidth / 2 + squareWidth * 7,
-      this,
-      "white"
-    );
+    // // Rooks
+    // let whiteLRook = new Rook(
+    //   squareWidth / 2,
+    //   squareWidth / 2 + squareWidth * 7,
+    //   this,
+    //   "white"
+    // );
 
-    let whiteRRook = new Rook(
-      squareWidth / 2 + squareWidth * 7,
-      squareWidth / 2 + squareWidth * 7,
-      this,
-      "white"
-    );
+    // let whiteRRook = new Rook(
+    //   squareWidth / 2 + squareWidth * 7,
+    //   squareWidth / 2 + squareWidth * 7,
+    //   this,
+    //   "white"
+    // );
 
-    let blackLRook = new Rook(squareWidth / 2, squareWidth / 2, this, "black");
+    // let blackLRook = new Rook(squareWidth / 2, squareWidth / 2, this, "black");
 
-    let blackRRook = new Rook(
-      squareWidth / 2 + squareWidth * 7,
-      squareWidth / 2,
-      this,
-      "black"
-    );
+    // let blackRRook = new Rook(
+    //   squareWidth / 2 + squareWidth * 7,
+    //   squareWidth / 2,
+    //   this,
+    //   "black"
+    // );
 
-    this.white.push(whiteLRook);
-    this.white.push(whiteRRook);
-    this.black.push(blackLRook);
-    this.black.push(blackRRook);
-    this.boardState[0][0] = blackLRook;
-    this.boardState[0][7] = blackRRook;
-    this.boardState[7][0] = whiteLRook;
-    this.boardState[7][7] = whiteRRook;
+    // this.white.push(whiteLRook);
+    // this.white.push(whiteRRook);
+    // this.black.push(blackLRook);
+    // this.black.push(blackRRook);
+    // this.boardState[0][0] = blackLRook;
+    // this.boardState[0][7] = blackRRook;
+    // this.boardState[7][0] = whiteLRook;
+    // this.boardState[7][7] = whiteRRook;
 
     // Queens
     let whiteQueen = new Queen(
@@ -267,6 +268,7 @@ class Board {
     }
 
     this.checkmate = this.isCheckmate();
+    this.stalemate = this.isStalemate();
   }
 
   capture() {
@@ -389,14 +391,29 @@ class Board {
     return isStillCheck;
   }
 
-  isCheckmate() {
+  hasLegalMove() {
     let curr;
     if (this.currentTurn === "white") {
       curr = this.white;
     } else {
       curr = this.black;
     }
+    
+    let hasLegalMove = false;
+    for (let piece of curr) {
+      for (let move of piece.moveset) {
+        let moveX = move[0] * squareWidth + squareWidth / 2;
+        let moveY = move[1] * squareWidth + squareWidth / 2;
+        if (!this.stillInCheck(piece, moveX, moveY)) {
+          hasLegalMove = true;
+        }
+      }
+    }
 
+    return hasLegalMove;
+  }
+
+  isCheckmate() {
     let currInCheck;
     if (this.currentTurn === "white") {
       currInCheck = this.whiteInCheck;
@@ -404,16 +421,21 @@ class Board {
       currInCheck = this.blackInCheck;
     }
 
-    for (let piece of curr) {
-      for (let move of piece.moveset) {
-        let moveX = move[0] * squareWidth + squareWidth / 2;
-        let moveY = move[1] * squareWidth + squareWidth / 2;
-        if (!currInCheck || !this.stillInCheck(piece, moveX, moveY)) {
-          return false;
-        }
-      }
+    return currInCheck && !this.hasLegalMove();
+  }
+
+  isStalemate() {
+    let currInCheck;
+    if (this.currentTurn === "white") {
+      currInCheck = this.whiteInCheck;
+    } else {
+      currInCheck = this.blackInCheck;
     }
 
-    return currInCheck;
+    if (!currInCheck && !this.hasLegalMove()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

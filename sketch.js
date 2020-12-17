@@ -23,9 +23,9 @@ function draw() {
   textSize(fontSize);
   textFont(font);
   board.updateAndShow(mouseX, mouseY);
+  textSize(fontSize * 0.75);
+  textFont("Helvetica");
   if (board.checkmate) {
-    textSize(fontSize * 0.75);
-    textFont("Helvetica");
     text(
       board.currentTurn[0].toUpperCase() +
         board.currentTurn.substring(1) +
@@ -33,6 +33,8 @@ function draw() {
       squareWidth * 4,
       squareWidth * 4
     );
+  } else if (board.stalemate) {
+    text("The game is a draw", squareWidth * 4, squareWidth * 4);
   }
 }
 
