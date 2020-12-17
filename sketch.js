@@ -1,5 +1,5 @@
 var dimensions = 8;
-var squareWidth = 200;
+var squareWidth = 100;
 var canvasSize = dimensions * squareWidth;
 var fontSize = 150;
 var board;
