@@ -45,7 +45,7 @@ function draw() {
 
 function mousePressed() {
   if (board.checkmate || board.stalemate) return;
-  board.pressed(mouseX, mouseY);
+  board.pressed(mouseX + offset, mouseY);
   board.updateMovesets();
 }
 
