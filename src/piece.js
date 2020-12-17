@@ -29,13 +29,12 @@ class Piece {
   }
 
   show() {
-    strokeWeight(3);
     if (this.colour === "white") {
+      strokeWeight(7);
       fill("white");
-      stroke("black");
     } else {
+      strokeWeight(1);
       fill("black");
-      stroke("white");
     }
     text(this.code, this.x + offset, this.y);
   }
