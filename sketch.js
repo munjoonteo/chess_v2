@@ -71,7 +71,3 @@ function drawGrid() {
     }
   }
 }
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-}
