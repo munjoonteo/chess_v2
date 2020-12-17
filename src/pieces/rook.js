@@ -8,7 +8,7 @@ class Rook extends Piece {
   updateMoveset() {
     let moveset = [];
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Down
       let move = [this.xGrid, this.yGrid + i];
       if (this.withinBounds(move)) {
@@ -25,7 +25,7 @@ class Rook extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Up
       let move = [this.xGrid, this.yGrid - i];
       if (this.withinBounds(move)) {
@@ -42,7 +42,7 @@ class Rook extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Right
       let move = [this.xGrid + i, this.yGrid];
       if (this.withinBounds(move)) {
@@ -59,7 +59,7 @@ class Rook extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Left
       let move = [this.xGrid - i, this.yGrid];
       if (this.withinBounds(move)) {

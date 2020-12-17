@@ -8,7 +8,7 @@ class Bishop extends Piece {
   updateMoveset() {
     let moveset = [];
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Bottom right diagonal
       let move = [this.xGrid + i, this.yGrid + i];
       if (this.withinBounds(move)) {
@@ -25,7 +25,7 @@ class Bishop extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Top left diagonal
       let move = [this.xGrid - i, this.yGrid - i];
       if (this.withinBounds(move)) {
@@ -42,7 +42,7 @@ class Bishop extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Top right diagonal
       let move = [this.xGrid + i, this.yGrid - i];
       if (this.withinBounds(move)) {
@@ -59,7 +59,7 @@ class Bishop extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Bottom left diagonal
       let move = [this.xGrid - i, this.yGrid + i];
       if (this.withinBounds(move)) {

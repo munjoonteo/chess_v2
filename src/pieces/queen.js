@@ -8,7 +8,7 @@ class Queen extends Piece {
   updateMoveset() {
     let moveset = [];
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Down
       let move = [this.xGrid, this.yGrid + i];
       if (this.withinBounds(move)) {
@@ -25,7 +25,7 @@ class Queen extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Up
       let move = [this.xGrid, this.yGrid - i];
       if (this.withinBounds(move)) {
@@ -42,7 +42,7 @@ class Queen extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Right
       let move = [this.xGrid + i, this.yGrid];
       if (this.withinBounds(move)) {
@@ -59,7 +59,7 @@ class Queen extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Left
       let move = [this.xGrid - i, this.yGrid];
       if (this.withinBounds(move)) {
@@ -76,7 +76,7 @@ class Queen extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Bottom right diagonal
       let move = [this.xGrid + i, this.yGrid + i];
       if (this.withinBounds(move)) {
@@ -93,7 +93,7 @@ class Queen extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Top left diagonal
       let move = [this.xGrid - i, this.yGrid - i];
       if (this.withinBounds(move)) {
@@ -110,7 +110,7 @@ class Queen extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Top right diagonal
       let move = [this.xGrid + i, this.yGrid - i];
       if (this.withinBounds(move)) {
@@ -127,7 +127,7 @@ class Queen extends Piece {
       }
     }
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < dimensions; i++) {
       // Bottom left diagonal
       let move = [this.xGrid - i, this.yGrid + i];
       if (this.withinBounds(move)) {
