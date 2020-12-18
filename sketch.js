@@ -1,10 +1,9 @@
 var dimensions = 8;
-var squareWidth = 100;
-var canvasSize = dimensions * squareWidth;
-var fontSize = 150;
+var squareWidth;
+var canvasSize;
+var fontSize;
 var board;
 var font;
-var offset;
 
 var offsetX, offsetY;
 
@@ -13,6 +12,9 @@ function preload() {
 }
 
 function setup() {
+  squareWidth = windowHeight / 10;
+  fontSize = squareWidth * 0.9;
+
   let canvas = createCanvas(windowWidth, windowHeight);
   var x = windowWidth - width;
   var y = windowHeight - height;
@@ -22,8 +24,6 @@ function setup() {
 
   board = new Board();
   board.updateMovesets();
-
-  offset = windowWidth / 2 - 4 * squareWidth;
 }
 
 function draw() {
@@ -45,7 +45,7 @@ function draw() {
 
 function mousePressed() {
   if (board.checkmate || board.stalemate) return;
-  board.pressed(mouseX + offset, mouseY);
+  board.pressed(mouseX, mouseY);
   board.updateMovesets();
 }
 
@@ -67,7 +67,18 @@ function drawGrid() {
       }
       strokeWeight(0.5);
       stroke("black");
-      square(x + offset, y, squareWidth);
+      square(x, y, squareWidth);
     }
   }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  squareWidth = windowHeight / 10;
+  fontSize = squareWidth * 0.9;
+
+  let canvas = createCanvas(windowWidth, windowHeight);
+  var x = windowWidth - width;
+  var y = windowHeight - height;
+  canvas.position(x, y);
 }

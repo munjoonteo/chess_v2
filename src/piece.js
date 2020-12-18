@@ -36,7 +36,7 @@ class Piece {
       strokeWeight(1);
       fill("black");
     }
-    text(this.code, this.x + offset, this.y);
+    text(this.code, this.x, this.y);
   }
 
   update(mx, my) {
