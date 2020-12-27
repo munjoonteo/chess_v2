@@ -399,18 +399,17 @@ class Board {
       curr = this.black;
     }
 
-    let hasLegalMove = false;
     for (let piece of curr) {
       for (let move of piece.moveset) {
         let moveX = move[0] * squareWidth + squareWidth / 2;
         let moveY = move[1] * squareWidth + squareWidth / 2;
         if (!this.stillInCheck(piece, moveX, moveY)) {
-          hasLegalMove = true;
+          return true;
         }
       }
     }
 
-    return hasLegalMove;
+    return false;
   }
 
   isCheckmate() {

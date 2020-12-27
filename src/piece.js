@@ -71,6 +71,7 @@ class Piece {
       this.x = this.originalX;
       this.y = this.originalY;
     }
+    this.board.recentCapture = null;
   }
 
   movePiece(finalX, finalY) {
