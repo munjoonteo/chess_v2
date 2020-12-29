@@ -10,3 +10,5 @@ Improvements over the previous version:
 - Generally less spaghetti code
 
 Inspired by Code Bullet (<https://www.youtube.com/channel/UC0e3QhIYukixgh5VVpKHH9Q>)
+
+Icon vector created by [rawpixel.com - www.freepik.com](https://www.freepik.com/vectors/icon)
