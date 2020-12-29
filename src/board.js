@@ -345,6 +345,8 @@ class Board {
     // Save original position
     let oldX = piece.originalX;
     let oldY = piece.originalY;
+    let oldHasMoved = piece.hasMoved;
+    let oldMovedTwo = piece.movedTwo;
 
     // Save original board state
     let oldBoardState = [];
@@ -384,8 +386,8 @@ class Board {
       this.recentCapture = null;
     }
 
-    piece.hasMoved = false;
-    piece.movedTwo = false;
+    piece.hasMoved = oldHasMoved;
+    piece.movedTwo = oldMovedTwo;
     piece.updateMoveset();
 
     return isStillCheck;

@@ -4,6 +4,7 @@ var canvasSize;
 var fontSize;
 var board;
 var font;
+var canvas;
 
 var offsetX, offsetY;
 
@@ -12,13 +13,11 @@ function preload() {
 }
 
 function setup() {
-  squareWidth = windowHeight / 10;
+  squareWidth = Math.min(windowHeight / 10, windowWidth / 10);
   fontSize = squareWidth * 0.9;
 
-  let canvas = createCanvas(windowWidth, windowHeight);
-  var x = windowWidth - width;
-  var y = windowHeight - height;
-  canvas.position(x, y);
+  canvas = createCanvas(windowWidth * 0.6, windowHeight);
+  canvas.position(windowWidth * 0.15, windowHeight * 0.1);
 
   textAlign(CENTER, CENTER);
 
@@ -27,7 +26,7 @@ function setup() {
 }
 
 function draw() {
-  background("#312E2B");
+  background("#edffee");
   drawGrid();
   textSize(fontSize);
   textFont(font);
@@ -76,9 +75,5 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   squareWidth = windowHeight / 10;
   fontSize = squareWidth * 0.9;
-
-  let canvas = createCanvas(windowWidth, windowHeight);
-  var x = windowWidth - width;
-  var y = windowHeight - height;
-  canvas.position(x, y);
+  canvas.position(0, 0);
 }

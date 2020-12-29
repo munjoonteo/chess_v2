@@ -117,4 +117,42 @@ class Pawn extends Piece {
 
     this.moveset = moveset;
   }
+
+  promotion() {
+    let modal = document.createElement("div");
+    modal.setAttribute("class", "modal");
+
+    let content = document.createElement("div");
+    content.setAttribute("class", "modal-content");
+
+    let words = document.createElement("div");
+    words.setAttribute("class", "promote");
+    words.innerText = "Promotion";
+
+    let nButton = document.createElement("button");
+    nButton.setAttribute("class", "button");
+    nButton.innerText = "\uf06d";
+
+    let bButton = document.createElement("button");
+    bButton.setAttribute("class", "button");
+    bButton.innerText = "\uf076";
+
+    let rButton = document.createElement("button");
+    rButton.setAttribute("class", "button");
+    rButton.innerText = "\uF074";
+
+    let qButton = document.createElement("button");
+    qButton.setAttribute("class", "button");
+    qButton.innerText = "\uf077";
+
+    content.appendChild(words);
+    content.appendChild(nButton);
+    content.appendChild(bButton);
+    content.appendChild(rButton);
+    content.appendChild(qButton);
+
+    modal.appendChild(content);
+    let stuff = document.body.getElementsByClassName("stuff");
+    stuff[0].appendChild(modal);
+  }
 }

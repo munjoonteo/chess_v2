@@ -93,12 +93,15 @@ class Piece {
     // Set old position to be an empty square
     this.board.boardState[this.yGrid][this.xGrid] = new Piece(0, 0, null, "");
 
-    // Check for pawns moving two squares
-    if (
-      this.name === "p" &&
-      Math.abs(floor(finalY / squareWidth) - this.yGrid) == 2
-    ) {
-      this.movedTwo = true;
+    // Check for pawns moving two squares and promoting
+    if (this.name === "p") {
+      if (Math.abs(floor(finalY / squareWidth) - this.yGrid) == 2) {
+        this.movedTwo = true;
+      } else if (this.colour === "white" && this.yGrid == 0) {
+        this.promotion();
+      } else if (this.colour === "black" && this.yGrid == dimensions - 1) {
+        this.promotion();
+      }
     }
 
     // Update piece data
