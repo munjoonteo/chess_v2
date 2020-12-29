@@ -2,7 +2,7 @@
 
 The second version of my interactive chess game. It is written in vanilla Javascript usign the p5 Javascript library. The previous version of this can be found [here](https://github.com/munjoonteo/chess).
 
-Try it out [here](https://munjoonteo.github.io/chess_v2/)!
+Try it out [here](https://mj-chess.netlify.app/)!
 
 Improvements over the previous version:
 
