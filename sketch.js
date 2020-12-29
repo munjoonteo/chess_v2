@@ -13,11 +13,11 @@ function preload() {
 }
 
 function setup() {
-  squareWidth = Math.min(windowHeight / 10, windowWidth / 10);
-  fontSize = squareWidth * 0.9;
-
-  canvas = createCanvas(windowWidth * 0.6, windowHeight);
+  canvas = createCanvas(windowWidth * 0.5, windowHeight);
   canvas.position(windowWidth * 0.15, windowHeight * 0.1);
+
+  squareWidth = Math.min(width / 10, height / 10);
+  fontSize = squareWidth * 0.9;
 
   textAlign(CENTER, CENTER);
 
@@ -60,7 +60,7 @@ function drawGrid() {
       var x = squareWidth * i;
       var y = squareWidth * j;
       if ((i + j) % 2 == 0) {
-        fill("#e0e0e0");
+        fill("#f0f0f0");
       } else {
         fill("#316540");
       }
@@ -69,11 +69,4 @@ function drawGrid() {
       square(x, y, squareWidth);
     }
   }
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  squareWidth = windowHeight / 10;
-  fontSize = squareWidth * 0.9;
-  canvas.position(0, 0);
 }
