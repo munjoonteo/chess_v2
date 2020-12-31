@@ -26,20 +26,26 @@ body {
 
 .title {
   font-family: "Yantramanav", sans-serif;
-  font-size: 60px;
+  font-size: 3.5vw;
   color: black;
   padding: 2rem 10rem 0rem 0rem;
 }
 
 .subtitle {
-  font-size: 40px;
+  font-size: 2vw;
   color: black;
 }
 
+.modal-content {
+  padding: 2rem 5rem 2rem;
+  margin: 2rem 0rem 2rem;
+  border-radius: 30px;
+  border: 0.5px solid #b8b8b8;
+}
+
 .promote {
-  font-size: 40px;
+  font-size: 1.7vw;
   color: black;
-  margin-top: 3rem;
 }
 
 a {
@@ -54,9 +60,9 @@ a:hover {
 
 .button {
   font-family: "chess";
-  font-size: 150px;
-  margin: 1rem;
-  padding: 1rem;
+  font-size: 4vw;
+  margin: 1rem 0rem 1rem;
+  padding: 2rem 0rem 2rem;
   border: 1px solid #edffee;
   border-radius: 30px;
   background-color: #e0e0e0;
