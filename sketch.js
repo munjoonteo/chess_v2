@@ -13,7 +13,7 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(windowWidth * 0.5, windowHeight);
+  canvas = createCanvas(windowWidth * 0.5, windowHeight * 0.9);
   canvas.position(windowWidth * 0.15, windowHeight * 0.1);
 
   squareWidth = Math.min(width / 10, height / 10);
