@@ -439,4 +439,40 @@ class Board {
       return false;
     }
   }
+
+  promote(piece, newType) {
+    let curr;
+    if (this.currentTurn === "white") {
+      curr = this.black;
+    } else {
+      curr = this.white;
+    }
+
+    for (let i = 0; i < curr.length; i++) {
+      if (curr[i] === piece) {
+        curr.splice(i, 1);
+        break;
+      }
+    }
+
+    let newPiece;
+
+    if (newType === "N") {
+      newPiece = new Knight(piece.x, piece.y, this, piece.colour);
+    } else if (newType === "B") {
+      newPiece = new Bishop(piece.x, piece.y, this, piece.colour);
+    } else if (newType === "R") {
+      newPiece = new Rook(piece.x, piece.y, this, piece.colour);
+    } else if (newType === "Q") {
+      newPiece = new Queen(piece.x, piece.y, this, piece.colour);
+    }
+
+    curr.push(newPiece);
+    this.boardState[piece.yGrid][piece.xGrid] = newPiece;
+    this.updateMovesets();
+
+    let menu = document.body.getElementsByClassName("modal");
+    let stuff = document.body.getElementsByClassName("stuff");
+    stuff[0].removeChild(menu[0]);
+  }
 }

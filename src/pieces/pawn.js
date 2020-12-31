@@ -132,18 +132,30 @@ class Pawn extends Piece {
     let nButton = document.createElement("button");
     nButton.setAttribute("class", "button");
     nButton.innerText = "\uf06d";
+    nButton.onclick = () => {
+      this.board.promote(this, "N");
+    };
 
     let bButton = document.createElement("button");
     bButton.setAttribute("class", "button");
     bButton.innerText = "\uf076";
+    bButton.onclick = () => {
+      this.board.promote(this, "B");
+    };
 
     let rButton = document.createElement("button");
     rButton.setAttribute("class", "button");
     rButton.innerText = "\uF074";
+    rButton.onclick = () => {
+      this.board.promote(this, "R");
+    };
 
     let qButton = document.createElement("button");
     qButton.setAttribute("class", "button");
     qButton.innerText = "\uf077";
+    qButton.onclick = () => {
+      this.board.promote(this, "Q");
+    };
 
     content.appendChild(words);
     content.appendChild(nButton);
